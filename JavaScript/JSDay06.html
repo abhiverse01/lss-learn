@@ -1,0 +1,44 @@
+<!-- JS Day 06 - Arrays -->
+<!-- This HTML file demonstrates JavaScript arrays, which store multiple values in an ordered list. -->
+<!-- It shows array creation, indexing, length property, adding elements with push(), and iterating with a for loop. -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata that isn't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 6 – Arrays</title>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 is a heading tag for the main title, displayed prominently. -->
+  <h1>Day 6: Arrays</h1>
+
+  <!-- The script tag contains JavaScript code that demonstrates array operations. -->
+  <script>
+    // Array literal syntax: square brackets create an array with multiple values in order.
+    let fruits = ["apple", "banana", "cherry"];
+
+    // Accessing array elements by index: arrays are zero-indexed, so [0] is the first element.
+    console.log("First fruit:", fruits[0]); // indexing starts at 0
+    // length property returns the number of elements in the array.
+    console.log("Total items:", fruits.length);
+
+    // push() method adds an element to the end of the array.
+    fruits.push("dragon-fruit");
+    console.log("After push:", fruits);
+
+    // for loop to iterate over the array: initialize i=0, loop while i < length, increment i.
+    document.write("<ul>");
+    for (let i = 0; i < fruits.length; i++) {
+      // Template literal to embed the array element in HTML list item.
+      document.write(`<li>${fruits[i]}</li>`);
+    }
+    document.write("</ul>");
+  </script>
+</body>
+</html>

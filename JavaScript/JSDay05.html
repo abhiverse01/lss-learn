@@ -1,0 +1,41 @@
+<!-- JS Day 05 - Undefined & Null -->
+<!-- This HTML file demonstrates the concepts of undefined and null in JavaScript. -->
+<!-- It shows the difference between unassigned variables (undefined) and explicitly set no-value (null), and recaps primitive types. -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata that isn't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 5 – Undefined & Null</title>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 is a heading tag for the main title, displayed prominently. -->
+  <h1>Day 5: Undefined vs Null</h1>
+
+  <!-- The script tag contains JavaScript code that demonstrates undefined and null. -->
+  <script>
+    // let pet; declares a variable without assigning a value, so it's undefined.
+    let pet;                // declared but not assigned → undefined
+    // null is explicitly assigned to indicate "no value yet" by the programmer.
+    let address = null;     // programmer chooses "no value yet"
+
+    // Logging undefined variable: value is undefined, type is "undefined".
+    console.log("pet:", pet, typeof pet);         // undefined
+    // Logging null variable: value is null, but typeof returns "object" (historic JavaScript bug).
+    console.log("address:", address, typeof address); // object (historic bug)
+
+    // Quick recap of all primitive types covered so far.
+    console.log(typeof 42);        // number
+    console.log(typeof "hi");      // string
+    console.log(typeof true);      // boolean
+    console.log(typeof undefined); // undefined
+    console.log(typeof null);      // object (ignore, just remember null)
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- Day 08 - Internal CSS -->
+<!-- This HTML file demonstrates the use of internal CSS, where styles are defined within the HTML document using the <style> tag in the head section. -->
+<!-- Internal CSS allows styling specific to this page, using selectors like element names, classes, and IDs to target HTML elements. -->
+
+<!-- The DOCTYPE declaration indicates this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying English language. -->
+<html lang="en">
+<!-- The head section contains metadata and styles not visible on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title defines the page title shown in the browser tab. -->
+  <title>Day 8 – Internal CSS</title>
+  <!-- The style tag contains CSS rules applied to this document. -->
+  <style>
+    /* body selector applies styles to the entire body element, setting font and margin. */
+    body  { font-family: Arial, sans-serif; margin: 40px; }
+    /* h1 selector targets all h1 elements, setting their color to seagreen. */
+    h1    { color: seagreen; }
+    /* .highlight is a class selector, applied to elements with class="highlight", adding background and padding. */
+    .highlight { background: lemonchiffon; padding: 8px; }
+    /* #logo is an ID selector, applied to the element with id="logo", setting its width. */
+    #logo { width: 100px; }
+  </style>
+</head>
+<!-- The body contains the visible content, styled by the internal CSS. -->
+<body>
+  <!-- h1 element styled by the h1 selector in CSS. -->
+  <h1>Internal CSS Demo</h1>
+  <!-- p element with class="highlight", styled by the .highlight class selector. -->
+  <p class="highlight">This paragraph uses a class selector.</p>
+  <!-- img element with id="logo", styled by the #logo ID selector. src provides the image URL, alt for accessibility. -->
+  <img id="logo" src="https://source.unsplash.com/random/100x100" alt="logo">
+</body>
+</html>

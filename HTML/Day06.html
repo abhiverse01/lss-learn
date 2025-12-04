@@ -1,0 +1,33 @@
+<!-- Day 06 - Forms -->
+<!-- This HTML file demonstrates the creation of web forms using HTML form elements. -->
+<!-- Forms allow users to input data, which can be submitted to a server. -->
+<!-- Key elements include form (container), input (text fields), textarea (multi-line text), and button (submit). -->
+
+<!-- The DOCTYPE declaration specifies this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" indicating English language. -->
+<html lang="en">
+<!-- The head section contains metadata not visible on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8. -->
+  <meta charset="UTF-8">
+  <!-- title sets the page title displayed in the browser tab. -->
+  <title>Day 6 – Forms</title>
+</head>
+<!-- The body contains the visible content. -->
+<body>
+  <!-- h1 is the main heading for the page. -->
+  <h1>Contact Us</h1>
+  <!-- form tag creates a form container. action="#" means submit to the same page (placeholder), method="post" sends data via POST. -->
+  <form action="#" method="post">
+    <!-- label associates text with an input field for accessibility. input type="text" creates a single-line text field, name="name" identifies it, required makes it mandatory. -->
+    <label>Name: <input type="text" name="name" required></label><br><br>
+    <!-- Another label and input, type="email" validates email format, required. -->
+    <label>Email: <input type="email" name="email" required></label><br><br>
+    <!-- label for textarea, which allows multi-line text input. rows and cols set dimensions. -->
+    <label>Message:<br><textarea name="msg" rows="4" cols="40"></textarea></label><br><br>
+    <!-- button type="submit" submits the form when clicked. -->
+    <button type="submit">Send</button>
+  </form>
+</body>
+</html>

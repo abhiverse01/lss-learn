@@ -1,0 +1,44 @@
+<!-- JS Day 04 - Booleans & Decisions -->
+<!-- This HTML file demonstrates JavaScript's boolean data type and conditional statements. -->
+<!-- It shows how to use boolean values for decision-making with if-else statements and logical operators. -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata that isn't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 4 – Booleans & Decisions</title>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 is a heading tag for the main title, displayed prominently. -->
+  <h1>Day 4: Booleans & if</h1>
+
+  <!-- The script tag contains JavaScript code that demonstrates boolean logic and conditionals. -->
+  <script>
+    /* ----- Boolean (primitive data type #3) ----- */
+    // Boolean variables hold true or false values.
+    let isLoggedIn = true;   // only two values: true or false
+    let hasPayment = true;
+
+    // Logging the boolean value and its type to the console.
+    console.log("Logged-in status:", isLoggedIn, typeof isLoggedIn);
+
+    // Conditional statement: if-else chain for decision-making.
+    // && is the logical AND operator - both conditions must be true.
+    if (isLoggedIn && hasPayment) {
+      document.write("<p>Welcome, premium user!</p>");
+    // else if checks another condition if the first was false.
+    } else if (isLoggedIn) {
+      document.write("<p>Welcome, free user!</p>");
+    // else executes if none of the above conditions are true.
+    } else {
+      document.write("<p>Please log in.</p>");
+    }
+  </script>
+</body>
+</html>

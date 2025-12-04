@@ -1,0 +1,44 @@
+<!-- JS Day 07 - Objects -->
+<!-- This HTML file demonstrates JavaScript objects, which store key-value pairs for structured data. -->
+<!-- It shows object literal syntax, property access with dot and bracket notation, adding properties, and using array methods like join(). -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata that isn't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 7 – Objects</title>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 is a heading tag for the main title, displayed prominently. -->
+  <h1>Day 7: JavaScript Objects</h1>
+
+  <!-- The script tag contains JavaScript code that demonstrates object operations. -->
+  <script>
+    // Object literal syntax: curly braces create an object with key-value pairs.
+    let student = {
+      name: "Fatima",
+      age: 19,
+      isActive: true,
+      hobbies: ["reading", "coding"]
+    };
+
+    // Dot notation to access object properties: object.propertyName.
+    console.log(student.name);        // dot notation
+    // Bracket notation to access properties: object["propertyName"], useful for dynamic keys.
+    console.log(student["age"]);      // bracket notation
+
+    // Adding a new property to the object dynamically.
+    student.grade = "A+";
+    console.log("Updated object:", student);
+
+    // Displaying object data on the page: template literal with join() to concatenate array elements.
+    document.write(`<p>${student.name} loves ${student.hobbies.join(" & ")}.</p>`);
+  </script>
+</body>
+</html>

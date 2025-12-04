@@ -1,0 +1,39 @@
+<!-- JS Day 01 - Hello document.write() -->
+<!-- This HTML file introduces basic JavaScript integration using the <script> tag. -->
+<!-- It demonstrates how to embed JavaScript code within an HTML document to dynamically output content. -->
+<!-- The script uses document.write() to insert text directly into the HTML page at the point where the script is executed. -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata that isn't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 1 – Hello document.write()</title>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 is a heading tag for the main title, displayed prominently. -->
+  <h1>Day 1: My First JavaScript Line</h1>
+
+  <!--
+  The <script> tag is the browser's signal:
+  "Everything inside here is JavaScript, not HTML."
+  It allows embedding JavaScript code directly in the HTML file.
+  -->
+  <script>
+    // Single-line comment: after // the browser ignores the text
+    /* Multi-line comment
+       can span many lines */
+
+    // document.write() dumps text directly into the HTML page
+    // WARNING: only for learning—never use it in real projects!
+    // It writes the string argument to the document at the current position.
+    // Here, it outputs "Hello from <strong>JavaScript</strong>!" which includes HTML tags that are rendered.
+    document.write("Hello from <strong>JavaScript</strong>!");
+  </script>
+</body>
+</html>

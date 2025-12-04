@@ -1,0 +1,59 @@
+<!-- JS Day 11 - Mini Counter App -->
+<!-- This HTML file demonstrates a simple counter application using JavaScript for DOM manipulation and event handling. -->
+<!-- It shows state management with a variable, event listeners for user interactions, and updating the UI dynamically. -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata and styles that aren't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 11 – Mini Counter App</title>
+  <!-- style tag contains CSS for centering the content and styling the number and buttons. -->
+  <style>
+    body{font-family:Arial;text-align:center;margin-top:50px}
+    #number{font-size:48px;margin:20px}
+    button{font-size:20px;padding:10px 20px;margin:5px}
+  </style>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 is a heading tag for the main title, displayed prominently. -->
+  <h1>Day 11: Counter Project</h1>
+  <!-- div with id="number" displays the current count, updated by JavaScript. -->
+  <div id="number">0</div>
+  <!-- buttons for increasing, decreasing, and resetting the counter. -->
+  <button id="inc">+ Increase</button>
+  <button id="dec">- Decrease</button>
+  <button id="reset">Reset</button>
+
+  <!-- The script tag contains JavaScript code that implements the counter logic. -->
+  <script>
+    // Grab references to DOM elements once for efficiency.
+    const numEl   = document.getElementById("number");
+    const incBtn  = document.getElementById("inc");
+    const decBtn  = document.getElementById("dec");
+    const resBtn  = document.getElementById("reset");
+
+    // let count = 0; declares a variable to hold the current count (state).
+    let count = 0; // our data (state)
+
+    // Reusable function that syncs the data (count) to the DOM (updates the display).
+    function updateScreen() {
+      numEl.textContent = count;
+      console.log("Count is now", count);
+    }
+
+    // Wire buttons to logic: add event listeners that update count and refresh the screen.
+    incBtn.addEventListener("click", () => { count++; updateScreen(); });
+    decBtn.addEventListener("click", () => { count--; updateScreen(); });
+    resBtn.addEventListener("click", () => { count = 0;  updateScreen(); });
+
+    // Initial paint: call updateScreen to display the initial count of 0.
+    updateScreen();
+  </script>
+</body>
+</html>

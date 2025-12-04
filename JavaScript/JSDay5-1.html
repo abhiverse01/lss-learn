@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>var vs let vs const + Naming Conventions</title>
+</head>
+<body>
+  <h1>var vs let vs const</h1>
+  <button id="demo">Click me</button>
+
+  <script>
+    /* =========================================================
+       1.  var   – old-school, function-scoped, can re-declare
+       2.  let   – block-scoped, can re-assign, cannot re-declare
+       3.  const – block-scoped, must initialize, cannot re-assign
+       ========================================================= */
+
+    // -----------  QUICK PROOF  -----------
+    function scopeTest() {
+      if (true) {
+        var a = 1;
+        let b = 2;
+        const c = 3;
+
+        a = 99;   // OK
+        b = 88;   // OK
+        // c = 77;  // ❌ TypeError: Assignment to constant variable
+        document.write(b); // ❌ ReferenceError: b is not defined
+      }
+      console.log("outside if, var a =", a); // 99  (function-scoped)
+      console.log(b); // ❌ ReferenceError: b is not defined
+      console.log(c); // ❌ ReferenceError: c is not defined
+    }
+    scopeTest();
+
+    // -----------  BEST PRACTICE  -----------
+    // Default to const.  Only switch to let if you MUST re-assign.
+    // Never use var in modern code.
+
+    // -----------  NAMING CONVENTIONS  -----------
+    // We wrote btnEl (or incBtn, decBtn) simply to mean:
+    // “This variable holds a reference to a BUTTON element.”
+    // It is **not** a JavaScript rule—just human-readable style.
+    // Alternatives you’ll see:
+    //   buttonElement, increaseButton, $btn, btn_element …
+    // Pick ONE style and stay consistent inside your project.
+
+    const btnEl = document.getElementById("demo"); // grab element
+    let clickCount = 0;                            // will change → let
+
+    btnEl.addEventListener("click", () => {
+      clickCount++;
+      console.log("Clicks so far:", clickCount);
+    });
+  </script>
+</body>
+</html>
+
+
+/*=========================================================
+ 1.  var   – old-school, function-scoped, can re-declare
+ 2.  let   – block-scoped, can re-assign, cannot re-declare
+ 3.  const – block-scoped, must initialize, cannot re-assign
+ ========================================================= */

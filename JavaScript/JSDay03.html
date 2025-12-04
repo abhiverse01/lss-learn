@@ -1,0 +1,46 @@
+<!-- JS Day 03 - Strings -->
+<!-- This HTML file demonstrates JavaScript's string data type and string manipulation techniques. -->
+<!-- It shows different ways to define strings, concatenation, and template literals for embedding variables and multi-line strings. -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata that isn't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 3 – Strings</title>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 is a heading tag for the main title, displayed prominently. -->
+  <h1>Day 3: Strings & Template Literals</h1>
+
+  <!-- The script tag contains JavaScript code that demonstrates string handling. -->
+  <script>
+    /* ----- Strings (primitive data type #2) ----- */
+    // Strings can be defined with double quotes.
+    let firstName = "Ada";               // double quotes
+    // Or with single quotes - both are valid.
+    let lastName  = 'Lovelace';          // single quotes OK too
+    // String concatenation using the + operator to join strings with a space.
+    let fullName  = firstName + " " + lastName; // concatenation
+
+    // Template literal using back-ticks allows embedding variables with ${}.
+    let sentence = `My name is ${fullName}.`;
+    console.log(sentence);
+
+    // Template literals support multi-line strings without escape characters.
+    let poem = `Roses are red,
+Violets are blue,
+Console is open,
+And so are you.`;
+    console.log(poem);
+
+    // Using document.write to output HTML with embedded template literal.
+    document.write(`<p>${sentence}</p>`);
+  </script>
+</body>
+</html>

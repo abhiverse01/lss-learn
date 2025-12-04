@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Snake — Simple Web Game</title>
+  
+    <style>
+    :root {
+        --bg: #f5f7fa;
+        --panel: #ffffff;
+        --accent: #2b8aef;
+        --accent-light: #e8f2ff;
+        --muted: #6c737f;
+        --danger: #e65050;
+        --radius: 12px;
+        --shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+    }
+
+    html, body {
+        margin: 0;
+        height: 100%;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+        background: var(--bg);
+        color: #111;
+    }
+
+    .wrap {
+        max-width: 960px;
+        margin: 32px auto;
+        padding: 20px;
+    }
+
+    .dev-label {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.85);
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--muted);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    }
+
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .subtitle {
+        margin-top: 3px;
+        font-size: 14px;
+        color: var(--muted);
+    }
+
+    .panel {
+        background: var(--panel);
+        border-radius: var(--radius);
+        padding: 20px;
+        box-shadow: var(--shadow);
+    }
+
+    .game-area {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    canvas {
+        background: linear-gradient(180deg, #eaf2ff, #fff);
+        border-radius: var(--radius);
+        border: 2px solid #d9e3f7;
+    }
+
+    .sidebar {
+        width: 260px;
+    }
+
+    .score {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--accent);
+    }
+
+    .meta {
+        margin-top: 4px;
+        font-size: 14px;
+        color: var(--muted);
+    }
+
+    .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.16s ease;
+    }
+
+    button:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+    }
+
+    button:active {
+        transform: translateY(0px) scale(0.98);
+    }
+
+    button.secondary {
+        background: var(--accent-light);
+        color: #0b2f6b;
+    }
+
+    button.warn {
+        background: var(--danger);
+    }
+
+    .hint {
+        margin-top: 14px;
+        font-size: 13px;
+        color: var(--muted);
+    }
+
+    footer {
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--muted);
+        text-align: center;
+    }
+
+    @media (max-width: 760px) {
+        .game-area {
+        flex-direction: column;
+        align-items: center;
+        }
+
+        .sidebar {
+        width: 100%;
+        }
+
+        canvas {
+        width: min(480px, 94vw);
+        height: auto;
+        }
+    }
+    </style>
+
+</head>
+
+<body>
+    <div class="dev-label">
+    Developed by <strong>Abhishek Shah</strong> for <strong>LSS HIGH</strong> students
+    </div>
+  
+  <div class="wrap">
+
+    <header>
+      <div>
+        <h1>Snake — A simple web game</h1>
+        <p class="subtitle">Built with HTML5 Canvas, CSS, and vanilla JavaScript.</p>
+      </div>
+      <small style="color:var(--muted)">Open in browser to play</small>
+    </header>
+
+    <section class="panel game-area">
+      <canvas id="board" width="480" height="480"></canvas>
+
+      <aside class="sidebar">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div id="score" class="score">0</div>
+            <div class="meta">Score</div>
+          </div>
+
+          <div style="text-align:right;">
+            <div id="status" class="meta" style="font-size:13px;">Ready</div>
+            <div class="meta" style="font-size:12px;">Speed: <span id="speedLabel">Normal</span></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="btnStart">Start</button>
+          <button id="btnPause" class="secondary">Pause</button>
+          <button id="btnReset" class="warn">Reset</button>
+
+          <button id="btnSlow" class="secondary">Slow</button>
+          <button id="btnNormal">Normal</button>
+          <button id="btnFast">Fast</button>
+        </div>
+
+        <div class="hint">
+          <strong>Controls:</strong>
+          <ul style="margin:6px 0 0 18px;padding:0;">
+            <li>Arrow keys or WASD to move</li>
+            <li>Space to pause / resume</li>
+            <li>Eat food to grow</li>
+          </ul>
+        </div>
+
+      </aside>
+    </section>
+
+    <footer>
+      Tip: This game uses a simple grid-based system. Check the script to understand movement & collisions.
+    </footer>
+  </div>
+
+  <script>
+    /* ---------------------------------------------------------
+       GAME CONSTANTS & ELEMENTS
+    --------------------------------------------------------- */
+    const canvas = document.getElementById("board");
+    const ctx = canvas.getContext("2d");
+
+    const TILE = 20;
+    const COLS = canvas.width / TILE;
+    const ROWS = canvas.height / TILE;
+
+    let snake = [{ x: Math.floor(COLS / 2), y: Math.floor(ROWS / 2) }];
+    let dir = { x: 0, y: 0 };
+    let nextDir = { x: 0, y: 0 };
+    let food = null;
+    let score = 0;
+    let running = false;
+    let speed = 120;
+    let intervalId = null;
+
+    const scoreEl = document.getElementById("score");
+    const statusEl = document.getElementById("status");
+    const speedLabel = document.getElementById("speedLabel");
+
+    /* ---------------------------------------------------------
+       UI BUTTONS
+    --------------------------------------------------------- */
+    document.getElementById("btnStart").onclick = startGame;
+    document.getElementById("btnPause").onclick = togglePause;
+    document.getElementById("btnReset").onclick = resetGame;
+
+    document.getElementById("btnSlow").onclick  = () => setSpeed(200, "Slow");
+    document.getElementById("btnNormal").onclick = () => setSpeed(120, "Normal");
+    document.getElementById("btnFast").onclick   = () => setSpeed(80, "Fast");
+
+    /* ---------------------------------------------------------
+       KEYBOARD INPUT
+    --------------------------------------------------------- */
+    window.addEventListener("keydown", (e) => {
+      const k = e.key;
+
+      if (k === "ArrowUp" || k === "w" || k === "W") queueDir(0, -1);
+      if (k === "ArrowDown" || k === "s" || k === "S") queueDir(0, 1);
+      if (k === "ArrowLeft" || k === "a" || k === "A") queueDir(-1, 0);
+      if (k === "ArrowRight" || k === "d" || k === "D") queueDir(1, 0);
+
+      if (k === " ") {
+        e.preventDefault();
+        togglePause();
+      }
+    });
+
+    function queueDir(x, y) {
+      if (dir.x === -x && dir.y === -y) return;
+      nextDir = { x, y };
+    }
+
+    /* ---------------------------------------------------------
+       GAME FLOW
+    --------------------------------------------------------- */
+    function startGame() {
+      if (running) return;
+      running = true;
+
+      statusEl.textContent = "Playing";
+      if (!food) spawnFood();
+      if (dir.x === 0 && dir.y === 0) dir = { x: 1, y: 0 };
+
+      intervalId = setInterval(tick, speed);
+    }
+
+    function togglePause() {
+      if (!running) return startGame();
+
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+        statusEl.textContent = "Paused";
+      } else {
+        intervalId = setInterval(tick, speed);
+        statusEl.textContent = "Playing";
+      }
+    }
+
+    function resetGame() {
+      clearInterval(intervalId);
+      intervalId = null;
+
+      snake = [{ x: Math.floor(COLS / 2), y: Math.floor(ROWS / 2) }];
+      dir = nextDir = { x: 0, y: 0 };
+      food = null;
+      score = 0;
+      running = false;
+
+      scoreEl.textContent = score;
+      statusEl.textContent = "Ready";
+      draw();
+    }
+
+    function setSpeed(ms, label) {
+      speed = ms;
+      speedLabel.textContent = label;
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = setInterval(tick, speed);
+      }
+    }
+
+    /* ---------------------------------------------------------
+       GAME TICK
+    --------------------------------------------------------- */
+    function tick() {
+      if (nextDir.x !== 0 || nextDir.y !== 0) {
+        dir = nextDir;
+        nextDir = { x: 0, y: 0 };
+      }
+
+      if (dir.x === 0 && dir.y === 0) return;
+
+      const head = {
+        x: snake[0].x + dir.x,
+        y: snake[0].y + dir.y
+      };
+
+      // Wrap edges
+      if (head.x < 0) head.x = COLS - 1;
+      if (head.x >= COLS) head.x = 0;
+      if (head.y < 0) head.y = ROWS - 1;
+      if (head.y >= ROWS) head.y = 0;
+
+      if (isOnSnake(head.x, head.y)) return gameOver();
+
+      snake.unshift(head);
+
+      if (food && head.x === food.x && head.y === food.y) {
+        score += 10;
+        scoreEl.textContent = score;
+        spawnFood();
+      } else {
+        snake.pop();
+      }
+
+      draw();
+    }
+
+    function isOnSnake(x, y) {
+      return snake.some((s) => s.x === x && s.y === y);
+    }
+
+    /* ---------------------------------------------------------
+       FOOD & DRAWING
+    --------------------------------------------------------- */
+    function spawnFood() {
+      while (true) {
+        const fx = Math.floor(Math.random() * COLS);
+        const fy = Math.floor(Math.random() * ROWS);
+        if (!isOnSnake(fx, fy)) {
+          food = { x: fx, y: fy };
+          return;
+        }
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // board
+      for (let x = 0; x < COLS; x++) {
+        for (let y = 0; y < ROWS; y++) {
+          ctx.fillStyle = (x + y) % 2 ? "#ffffff" : "#f8fbff";
+          ctx.fillRect(x * TILE, y * TILE, TILE, TILE);
+        }
+      }
+
+      // food
+      if (food) drawTile(food.x, food.y, TILE, "#e74c3c");
+
+      // snake
+      snake.forEach((s, i) => {
+        const color = i === 0 ? "#204ecf" : "#2b8aef";
+        drawTile(s.x, s.y, TILE, color, i === 0);
+      });
+
+      // grid lines (soft)
+      ctx.strokeStyle = "rgba(10,20,40,0.03)";
+      for (let i = 0; i <= COLS; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * TILE, 0);
+        ctx.lineTo(i * TILE, canvas.height);
+        ctx.stroke();
+      }
+      for (let i = 0; i <= ROWS; i++) {
+        ctx.beginPath();
+        ctx.moveTo(0, i * TILE);
+        ctx.lineTo(canvas.width, i * TILE);
+        ctx.stroke();
+      }
+    }
+
+    function drawTile(x, y, size, color, isHead = false) {
+      const px = x * size;
+      const py = y * size;
+
+      ctx.fillStyle = color;
+      ctx.fillRect(px + 1, py + 1, size - 2, size - 2);
+
+      if (isHead) {
+        ctx.fillStyle = "rgba(255,255,255,0.18)";
+        ctx.fillRect(px + size * 0.15, py + size * 0.18, size * 0.2, size * 0.2);
+      }
+    }
+
+    function gameOver() {
+      clearInterval(intervalId);
+      intervalId = null;
+      running = false;
+
+      statusEl.textContent = "Game Over";
+      scoreEl.style.color = "var(--danger)";
+      setTimeout(() => (scoreEl.style.color = "#2b8aef"), 800);
+    }
+
+    draw(); // initial
+  </script>
+
+</body>
+</html>

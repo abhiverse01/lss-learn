@@ -1,0 +1,49 @@
+<!-- JS Day 09 - Accessing the DOM -->
+<!-- This HTML file demonstrates DOM manipulation in JavaScript, showing how to access and modify HTML elements. -->
+<!-- It covers getElementById, changing text content, styles, and adding event listeners. -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata that isn't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 9 – Accessing the DOM</title>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 with id="title" for JavaScript to reference and change its color. -->
+  <h1 id="title">Day 9: DOM Manipulation</h1>
+  <!-- p with id="msg" for JavaScript to change its text content. -->
+  <p id="msg">Original message</p>
+  <!-- button with id="btn" for JavaScript to add a click event listener. -->
+  <button id="btn">Click to change</button>
+
+  <!-- The script tag contains JavaScript code that manipulates the DOM. -->
+  <script>
+    /* ----- The DOM (Document Object Model) -----
+       The browser turns every HTML tag into a JavaScript object
+       we can read or change. */
+
+    // 1. Grab references to elements using getElementById to select by id attribute.
+    const titleEl = document.getElementById("title");
+    const msgEl   = document.getElementById("msg");
+    const btnEl   = document.getElementById("btn");
+
+    // 2. Change text content of the paragraph element.
+    msgEl.textContent = "Text swapped by JS!";
+
+    // 3. Change styles by setting CSS properties on the style object.
+    titleEl.style.color = "tomato";
+
+    // 4. Add event listener to the button: when clicked, change background color and log time.
+    btnEl.addEventListener("click", () => {
+      document.body.style.backgroundColor = "lightyellow";
+      console.log("Button clicked at", new Date().toLocaleTimeString());
+    });
+  </script>
+</body>
+</html>

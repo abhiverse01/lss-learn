@@ -1,0 +1,28 @@
+<!-- Day 09 - External CSS -->
+<!-- This HTML file demonstrates the use of external CSS, where styles are defined in a separate CSS file and linked to the HTML document. -->
+<!-- External CSS promotes separation of concerns, reusability across multiple pages, and easier maintenance. -->
+
+<!-- The DOCTYPE declaration indicates this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying English language. -->
+<html lang="en">
+<!-- The head section contains metadata and links to external resources. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title defines the page title shown in the browser tab. -->
+  <title>Day 9 – External CSS</title>
+  <!-- link tag connects the external CSS file to this HTML document. rel="stylesheet" specifies it's a stylesheet, href points to the file path. -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<!-- The body contains the visible content, styled by the external CSS file. -->
+<body>
+  <!-- h1 element styled by rules in styles.css. -->
+  <h1>External CSS</h1>
+  <!-- div with class="card", styled by the .card class selector in styles.css. -->
+  <div class="card">
+    <!-- p element inside the card, inheriting styles from the parent or defined in CSS. -->
+    <p>Styling is now separated into its own file, making reuse easy.</p>
+  </div>
+</body>
+</html>

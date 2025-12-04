@@ -1,0 +1,44 @@
+<!-- JS Day 10 - Browser Dialogs -->
+<!-- This HTML file demonstrates browser dialog methods in JavaScript: alert, prompt, and confirm. -->
+<!-- These are built-in functions for user interaction, blocking the page until user responds. -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata that isn't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 10 – Browser dialogs</title>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 is a heading tag for the main title, displayed prominently. -->
+  <h1>Day 10: Browser Dialogs</h1>
+
+  <!-- The script tag contains JavaScript code that uses browser dialog methods. -->
+  <script>
+    // alert() displays a message and blocks the page until user clicks OK.
+    alert("Welcome to the mini quiz!");
+
+    // prompt() asks for user input, returns the string entered or null if canceled.
+    const city = prompt("Which city do you live in?");
+    console.log("User typed:", city);
+
+    // confirm() shows a yes/no dialog, returns true for OK, false for Cancel.
+    const likesJS = confirm("Do you like JavaScript so far?");
+    console.log("Likes JS:", likesJS);
+
+    // Output combined info to page using template literal for multi-line string.
+    const output = `
+      <ul>
+        <li>City: <b>${city || "not provided"}</b></li>
+        <li>Likes JS: <b>${likesJS}</b></li>
+      </ul>
+    `;
+    document.write(output);
+  </script>
+</body>
+</html>

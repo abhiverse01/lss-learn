@@ -1,0 +1,46 @@
+<!-- JS Day 08 - Functions -->
+<!-- This HTML file demonstrates JavaScript functions, which are reusable blocks of code. -->
+<!-- It shows function declaration, expression, arrow functions, parameters, return values, and function calls. -->
+
+<!-- The DOCTYPE declaration tells the browser this is an HTML5 document. -->
+<!DOCTYPE html>
+<!-- The html tag is the root element, with lang="en" specifying the language as English. -->
+<html lang="en">
+<!-- The head section contains metadata that isn't displayed on the page. -->
+<head>
+  <!-- meta charset sets the character encoding to UTF-8 for proper text display. -->
+  <meta charset="UTF-8">
+  <!-- title sets the text shown in the browser tab. -->
+  <title>JS Day 8 – Functions</title>
+</head>
+<!-- The body tag contains all the visible content of the web page. -->
+<body>
+  <!-- h1 is a heading tag for the main title, displayed prominently. -->
+  <h1>Day 8: Functions</h1>
+
+  <!-- The script tag contains JavaScript code that demonstrates different function types. -->
+  <script>
+    // Function declaration: function keyword, name, parameters in parentheses, body in braces.
+    function add(a, b) {
+      // a & b are parameters (placeholders) that receive arguments when called.
+      return a + b; // return statement sends the result back to the caller.
+    }
+
+    // Function expression: function assigned to a variable, can be anonymous.
+    const greet = function (name) {
+      return "Hello, " + name + "!"; // Concatenation to build the greeting string.
+    };
+
+    // Arrow function: shorter syntax, implicit return for single expressions.
+    const square = x => x * x; // x is parameter, x * x is the expression returned.
+
+    // Calling functions with arguments: add(3,4) passes 3 and 4 as a and b.
+    console.log("add(3,4) →", add(3, 4));
+    console.log("greet('Sam') →", greet("Sam"));
+    console.log("square(5) →", square(5));
+
+    // Displaying the result on the page using template literal.
+    document.write(`<p>3 + 4 = ${add(3, 4)}</p>`);
+  </script>
+</body>
+</html>
