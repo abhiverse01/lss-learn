@@ -1,8 +1,4 @@
-Here is the **raw Markdown code** for your `README.md` — you can copy–paste directly into your repo.
 
----
-
-```md
 # ✨ LSS High – Class 11 & 12 Coding Resources  
 ### _HTML • CSS • JavaScript • Games • Learning by Building_
 
@@ -120,13 +116,3 @@ Students are encouraged to:
 **Abhiverse (Abhishek Shah)**  
 Teaching & mentoring students of LSS High.
 
----
-```
-
----
-
-If you want, I can also:
-✅ Add GitHub badges
-✅ Add a header/banner image
-✅ Add a dark/light mode theme screenshot section
-Just tell me!
