@@ -44,7 +44,6 @@ Students learn:
 - Game loops (`setInterval`)  
 - Collision logic  
 
-> 📸 _Replace this with your own screenshot_  
 `![Snake Game](./Games/Snake/screenshot.png)`
 
 ---
@@ -57,7 +56,6 @@ Students learn:
 - Collision detection  
 - Score tracking  
 
-> 📸 _Replace this with your own screenshot_  
 `![Breakout Game](./Games/Breakout/screenshot.png)`
 
 ---
