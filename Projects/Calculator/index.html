@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator — Web App</title>
+<style>
+  :root {
+    --bg:#f7f9fb;
+    --panel:#ffffff;
+    --accent:#2b8aef;
+    --muted:#666;
+    --danger:#e65050;
+    --radius:12px;
+    --shadow:0 6px 18px rgba(0,0,0,0.06);
+  }
+  html,body{margin:0;padding:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:#111;display:flex;justify-content:center;align-items:center}
+  
+  .calculator {
+    background: var(--panel);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 320px;
+    max-width: 92vw;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .display {
+    background: #eaf2ff;
+    padding: 20px;
+    font-size: 2rem;
+    text-align: right;
+    word-wrap: break-word;
+    min-height: 60px;
+    box-sizing: border-box;
+  }
+
+  .sub-display {
+    font-size: 1rem;
+    color: var(--muted);
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 16px;
+  }
+
+  button {
+    padding: 18px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.1s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  }
+
+  button:active { transform: scale(0.97); }
+
+  .btn-number { background:#f0f3ff; color:#1742aa; }
+  .btn-operator { background: var(--accent); color: white; }
+  .btn-clear { background: var(--danger); color: white; }
+  .btn-equal { background: #20c997; color: white; grid-column: span 2; }
+
+  /* Dev label */
+  .dev-label{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.85);padding:6px 12px;font-size:12px;color:var(--muted);border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.08);backdrop-filter:blur(4px);z-index:999}
+
+  @media(max-width:400px){
+    .display { font-size: 1.5rem; padding:16px; }
+    button { padding:14px; font-size:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="dev-label">Developed by <strong>Abhishek Shah</strong> for <strong>LSS HIGH</strong> students</div>
+
+<div class="calculator">
+  <div class="display">
+    <div class="sub-display" id="expression"></div>
+    <div id="result">0</div>
+  </div>
+  <div class="buttons">
+    <button class="btn-clear">C</button>
+    <button class="btn-operator">/</button>
+    <button class="btn-operator">*</button>
+    <button class="btn-operator">%</button>
+
+    <button class="btn-number">7</button>
+    <button class="btn-number">8</button>
+    <button class="btn-number">9</button>
+    <button class="btn-operator">-</button>
+
+    <button class="btn-number">4</button>
+    <button class="btn-number">5</button>
+    <button class="btn-number">6</button>
+    <button class="btn-operator">+</button>
+
+    <button class="btn-number">1</button>
+    <button class="btn-number">2</button>
+    <button class="btn-number">3</button>
+    <button class="btn-equal">=</button>
+
+    <button class="btn-number" style="grid-column: span 2;">0</button>
+    <button class="btn-number">.</button>
+  </div>
+</div>
+
+<script>
+  const exprEl = document.getElementById('expression');
+  const resultEl = document.getElementById('result');
+  const buttons = document.querySelectorAll('button');
+
+  let expression = '';
+  let resultDisplayed = false;
+
+  function updateDisplay(){
+    exprEl.textContent = expression;
+  }
+
+  function appendNumber(num){
+    if(resultDisplayed){ expression=''; resultDisplayed=false; }
+    if(num === '.' && expression.slice(-1) === '.') return;
+    expression += num;
+    updateDisplay();
+  }
+
+  function appendOperator(op){
+    if(resultDisplayed){ resultDisplayed=false; expression=resultEl.textContent; }
+    if(expression === '') return;
+    const last = expression.slice(-1);
+    if('+-*/%'.includes(last)){ expression = expression.slice(0,-1); }
+    expression += op;
+    updateDisplay();
+  }
+
+  function clearAll(){
+    expression = '';
+    resultEl.textContent = '0';
+    updateDisplay();
+  }
+
+  function calculate(){
+    try{
+      let exp = expression.replace(/×/g,'*').replace(/÷/g,'/');
+      let res = eval(exp);
+      if(res===undefined || isNaN(res)) res=0;
+      resultEl.textContent = res;
+      resultDisplayed = true;
+    }catch(e){
+      resultEl.textContent='Error';
+      resultDisplayed = true;
+    }
+  }
+
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const val = btn.textContent;
+      if(btn.classList.contains('btn-number')){
+        appendNumber(val);
+      } else if(btn.classList.contains('btn-operator')){
+        appendOperator(val);
+      } else if(btn.classList.contains('btn-clear')){
+        clearAll();
+      } else if(btn.classList.contains('btn-equal')){
+        calculate();
+      }
+    });
+  });
+
+  // Keyboard support
+  window.addEventListener('keydown', (e)=>{
+    if('0123456789'.includes(e.key)) appendNumber(e.key);
+    if('+-*/%'.includes(e.key)) appendOperator(e.key);
+    if(e.key==='Enter') calculate();
+    if(e.key==='Backspace') expression = expression.slice(0,-1);
+    if(e.key==='Escape') clearAll();
+    updateDisplay();
+  });
+</script>
+</body>
+</html>

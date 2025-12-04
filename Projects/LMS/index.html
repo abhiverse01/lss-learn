@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LSS HIGH — Modern LMS</title>
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================
+   THEME VARIABLES
+============================ */
+:root {
+  --bg:#f5f7fc;
+  --panel:#ffffff;
+  --text:#222;
+  --muted:#6d7380;
+  --accent:#2b8aef;
+  --accent-light:#e8f1ff;
+  --radius:14px;
+  --shadow:0 8px 25px rgba(0,0,0,0.06);
+}
+
+.dark {
+  --bg:#0d0f14;
+  --panel:#181b22;
+  --text:#e5e5e5;
+  --muted:#9aa0ad;
+  --accent:#4da3ff;
+  --accent-light:#1d283b;
+}
+
+/* ============================
+   GLOBAL
+============================ */
+html, body {
+  margin:0;
+  font-family: "Poppins", system-ui;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .3s, color .3s;
+}
+
+.container {
+  max-width: 1100px;
+  margin:auto;
+  padding: 90px 20px 40px;
+}
+
+/* ============================
+   SIDE VERTICAL LABEL
+============================ */
+.side-label {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  background: var(--accent);
+  padding: 20px 12px;
+  border-radius: 0 12px 12px 0;
+  color: white;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 2px;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+  z-index: 900;
+}
+
+/* ============================
+   NAVIGATION BAR
+============================ */
+.navbar {
+  position: fixed;
+  top:0; left:0; width:100%;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  padding: 12px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:999;
+  transition:.3s;
+}
+.dark .navbar { background: rgba(17,17,17,0.7); }
+
+.nav-title {
+  font-weight:700;
+  font-size:22px;
+  letter-spacing:-0.5px;
+}
+
+.nav-actions {
+  display:flex;
+  gap:10px;
+}
+
+.nav-btn {
+  padding:8px 14px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:var(--accent-light);
+  color:var(--accent);
+  transition:.25s;
+  font-weight:500;
+}
+.nav-btn:hover {
+  background:var(--accent);
+  color:white;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ============================
+   COURSE CARDS
+============================ */
+.search-bar {
+  width:100%;
+  margin-bottom:18px;
+  padding:12px 16px;
+  font-size:15px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  transition:.2s;
+}
+.search-bar:focus {
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(50,120,255,0.15);
+}
+
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow: var(--shadow);
+  cursor:pointer;
+  transition:0.3s;
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+.card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 12px 34px rgba(0,0,0,0.12);
+}
+
+.card-icon {
+  width:60px;
+  height:60px;
+  border-radius:12px;
+  background:var(--accent-light);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+  color:var(--accent);
+}
+
+.card-title {
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+.card-meta {
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* ============================
+   LESSON LIST
+============================ */
+.lesson-item {
+  padding:16px;
+  border-bottom:1px solid rgba(0,0,0,0.07);
+  cursor:pointer;
+  transition:.18s;
+}
+.lesson-item:hover {
+  background:var(--accent-light);
+}
+.lesson-description {
+  font-size:13px;
+  margin-top:6px;
+  color:var(--muted);
+}
+
+/* ============================
+   BUTTONS
+============================ */
+.back-btn {
+  margin-bottom:16px;
+  padding:8px 16px;
+  background:var(--accent-light);
+  color:var(--accent);
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:500;
+  transition:.25s;
+}
+.back-btn:hover {
+  background:var(--accent);
+  color:white;
+}
+
+/* ============================
+   QUIZ
+============================ */
+.quiz-question {
+  margin-bottom:24px;
+  font-weight:500;
+  font-size:17px;
+}
+
+.quiz-options button {
+  display:block;
+  width:100%;
+  padding:14px;
+  margin-bottom:10px;
+  background:var(--accent-light);
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:left;
+  font-size:15px;
+  transition:.25s;
+}
+.quiz-options button:hover {
+  background:var(--accent);
+  color:white;
+}
+.correct {
+  background:#37c759 !important;
+  color:white;
+}
+.wrong {
+  background:#ff4f4f !important;
+  color:white;
+}
+.quiz-result {
+  margin-top:20px;
+  font-size:20px;
+  font-weight:700;
+}
+
+/* ============================
+   PAGE VISIBILITY
+============================ */
+.page { display:none; animation:fade .3s ease; }
+.active { display:block; }
+
+@keyframes fade {
+  from { opacity:0; transform:translateY(8px); }
+  to { opacity:1; transform:translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDE LABEL -->
+<div class="side-label">LSS HIGH</div>
+
+<!-- NAVIGATION BAR -->
+<div class="navbar">
+  <div class="nav-title">LSS HIGH — LMS</div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+  </div>
+</div>
+
+<!-- DEVELOPER LABEL -->
+<div style="
+  position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+  background:rgba(255,255,255,0.85);
+  padding:8px 14px; border-radius:10px; font-size:12px;
+  backdrop-filter:blur(6px); box-shadow:0 4px 14px rgba(0,0,0,0.12);
+  font-weight:500;
+">
+  Developed by <b>Abhishek Shah</b> for <b>LSS HIGH</b>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+  <!-- COURSE LIST -->
+  <div class="page active" id="pageCourses">
+    <h1 style="margin-bottom:6px;">My Courses</h1>
+    <p style="color:var(--muted); margin-bottom:25px;">Choose a course to begin learning.</p>
+
+    <input class="search-bar" placeholder="Search courses..." oninput="searchCourses(this.value)">
+    <div id="courseList"></div>
+  </div>
+
+  <!-- LESSON LIST -->
+  <div class="page" id="pageLessons">
+    <button class="back-btn" onclick="showPage('pageCourses')">← Back</button>
+    <h2 id="courseTitle"></h2>
+    <div id="lessonList"></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="page" id="pageQuiz">
+    <button class="back-btn" onclick="showPage('pageLessons')">← Back</button>
+    <h2 id="quizTitle"></h2>
+    <div id="quizQuestions"></div>
+    <div id="quizResult" class="quiz-result"></div>
+  </div>
+
+</div>
+
+<script>
+/* ======================================================
+   COURSE DATA
+====================================================== */
+const courses = {
+  1: {
+    title:"Web Development",
+    icon:"🌐",
+    lessons:[
+      ["HTML Basics","Understanding the building blocks of the web."],
+      ["CSS Fundamentals","Styling websites like a pro."],
+      ["JavaScript Intro","Make your pages alive."],
+      ["DOM Manipulation","Interact with elements dynamically."],
+      ["Forms & Validation","Collect and verify user data."],
+      ["Flexbox & Grid","Modern layout techniques."],
+      ["Projects","Hands-on practice."],
+      ["API Basics","Fetching online data."],
+      ["Deploying Sites","Making your site live."],
+      ["Mini Project","Build a full small website."]
+    ],
+    quiz:[
+      {q:"HTML stands for?", options:["Hyper Text Markup Language","High Tech Machine Language","Home Tool Markup Language"], ans:0},
+      {q:"CSS is used for?", options:["Content","Styling","Databases"], ans:1}
+    ]
+  },
+
+  2: {
+    title:"Python Programming",
+    icon:"🐍",
+    lessons:[
+      ["Python Intro","What Python is used for."],
+      ["Variables","Storing information."],
+      ["Data Types","Different forms of data."],
+      ["Conditionals","Decision making."],
+      ["Loops","Repeat tasks easily."],
+      ["Functions","Reusable code."],
+      ["Lists & Tuples","Collections."],
+      ["Mini Project","Your first program!"]
+    ],
+    quiz:[
+      {q:"Python is a ___ language?", options:["Low-level","High-level","Assembly"], ans:1},
+      {q:"To print in Python, use:", options:["echo","print()","console.log"], ans:1}
+    ]
+  },
+
+  3: {
+    title:"Math Essentials",
+    icon:"📘",
+    lessons:[
+      ["Numbers","Basic operations."],
+      ["Algebra","Symbols & rules."],
+      ["Geometry","Shapes & space."],
+      ["Fractions","Parts of whole."],
+      ["Percentage","Comparisons & growth."],
+      ["Probability","Chances of events."],
+      ["Statistics","Data insights."],
+      ["Equations","Solve unknowns."],
+      ["Trigonometry","Angles."],
+      ["Graphing","Plot data."],
+      ["Word Problems","Real life math."],
+      ["Mini Quiz","Test yourself."]
+    ],
+    quiz:[
+      {q:"2 + 2 = ?", options:["3","4","5"], ans:1},
+      {q:"5 × 6 = ?", options:["30","11","25"], ans:0}
+    ]
+  }
+};
+
+/* ======================================================
+   PAGE CONTROL
+====================================================== */
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ======================================================
+   LOAD COURSES
+====================================================== */
+const courseListEl = document.getElementById('courseList');
+
+function loadCourses(){
+  courseListEl.innerHTML = "";
+  for(const id in courses){
+    renderCourse(id);
+  }
+}
+loadCourses();
+
+function renderCourse(id){
+  const c = courses[id];
+  const card = document.createElement('div');
+  card.className = "card";
+  card.onclick = ()=> openCourse(id);
+  card.innerHTML = `
+    <div class="card-icon">${c.icon}</div>
+    <div>
+      <div class="card-title">${c.title}</div>
+      <div class="card-meta">${c.lessons.length} lessons</div>
+    </div>
+  `;
+  courseListEl.appendChild(card);
+}
+
+/* ======================================================
+   SEARCH COURSES
+====================================================== */
+function searchCourses(q){
+  q = q.toLowerCase();
+  courseListEl.innerHTML = "";
+  for(const id in courses){
+    if(courses[id].title.toLowerCase().includes(q)){
+      renderCourse(id);
+    }
+  }
+}
+
+/* ======================================================
+   OPEN COURSE → LESSONS
+====================================================== */
+let currentCourseId = null;
+const courseTitleEl = document.getElementById('courseTitle');
+const lessonListEl = document.getElementById('lessonList');
+
+function openCourse(id){
+  currentCourseId = id;
+  showPage("pageLessons");
+
+  const c = courses[id];
+  courseTitleEl.textContent = c.title;
+
+  lessonListEl.innerHTML = "";
+  c.lessons.forEach((ls, idx)=>{
+    const div = document.createElement('div');
+    div.className = "lesson-item";
+    div.innerHTML = `
+      <strong>${idx+1}. ${ls[0]}</strong>
+      <div class="lesson-description">${ls[1]}</div>
+    `;
+    div.onclick = ()=> openQuiz(id);
+    lessonListEl.appendChild(div);
+  });
+}
+
+/* ======================================================
+   QUIZ SYSTEM
+====================================================== */
+const quizTitleEl = document.getElementById('quizTitle');
+const quizQuestionsEl = document.getElementById('quizQuestions');
+const quizResultEl = document.getElementById('quizResult');
+
+function openQuiz(id){
+  showPage("pageQuiz");
+
+  const c = courses[id];
+  quizTitleEl.textContent = `${c.title} — Quiz`;
+  quizQuestionsEl.innerHTML = "";
+  quizResultEl.textContent = "";
+
+  let score = 0;
+
+  c.quiz.forEach((q, i)=>{
+    const qDiv = document.createElement('div');
+    qDiv.className = "quiz-question";
+    qDiv.textContent = `${i+1}. ${q.q}`;
+
+    const optionsDiv = document.createElement('div');
+    optionsDiv.className = "quiz-options";
+
+    q.options.forEach((opt, oi)=>{
+      const btn = document.createElement('button');
+      btn.textContent = opt;
+
+      btn.onclick = ()=>{
+        if(btn.classList.contains("correct") || btn.classList.contains("wrong")) return;
+
+        if(oi === q.ans){
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+        }
+
+        if(i === c.quiz.length - 1){
+          quizResultEl.textContent = `Your Score: ${score}/${c.quiz.length}`;
+        }
+      };
+
+      optionsDiv.appendChild(btn);
+    });
+
+    quizQuestionsEl.appendChild(qDiv);
+    quizQuestionsEl.appendChild(optionsDiv);
+  });
+}
+
+/* ======================================================
+   DARK MODE
+====================================================== */
+function toggleDarkMode(){
+  document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>
