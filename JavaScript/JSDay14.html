@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Day 14 – while & do-while</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{--accent:#0066ff;}
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:2rem;background:#f7f9fc;color:#222}
+    h1{margin-top:0;font-weight:600}
+    label{display:block;margin:.75rem 0 .25rem;font-size:.9rem;font-weight:500}
+    input{width:100%;max-width:280px;padding:.5rem .75rem;border:1px solid #ccd5e1;border-radius:.4rem;font-size:1rem}
+    button{margin-top:1rem;padding:.55rem 1.2rem;font-size:1rem;border:none;border-radius:.4rem;background:var(--accent);color:#fff;cursor:pointer}
+    button:hover{background:#0053d9}
+    pre{margin-top:1.5rem;padding:1rem;background:#eef2f7;border-radius:.4rem;font-size:.9rem;line-height:1.45;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+
+<h1>Day 14 – while & do-while loops</h1>
+
+<label>Start number: <input id="start" type="number" value="1"></label>
+<label>End number: <input id="end" type="number" value="5"></label>
+
+<button onclick="runLoops()">Run loops →</button>
+
+<pre id="log"></pre>
+
+<script> // Start of JavaScript code block embedded in HTML
+
+function log(msg) { // Define a function named 'log' that takes one parameter 'msg' (the message to log)
+
+  document.getElementById('log').textContent += msg + '\n'; 
+  // Find the HTML element with id 'log', append the message and a newline to its text content
+
+} // End of the log function definition
+
+function runLoops() { 
+  // Define a function named 'runLoops' that executes when the button is clicked,
+  // this function runs many loop demos
+
+  document.getElementById('log').textContent = ''; 
+  // Clear the text content of the element with id 'log' to reset the output area
+
+  const start = Number(document.getElementById('start').value); 
+  // Get the value from the input with id 'start', convert it to a number, and store in constant 'start'
+
+
+  const end   = Number(document.getElementById('end').value); 
+  // Get the value from the input with id 'end', convert it to a number, and store in constant 'end'
+
+
+
+  // 1. while loop // Comment indicating the start of the while loop demonstration
+  log('--- while loop ---'); // Call the log function to output a header for the while loop section
+
+
+  let i = start; 
+  // Declare a variable 'i' and set it to the value of 'start' (initial counter for the loop)
+
+  while (i <= end) { // Start a while loop that continues as long as 'i' is less than or equal to 'end'
+
+    log('Count: ' + i); 
+    // Inside the loop, call log to output the current count value of 'i'
+
+    i++; // Increment 'i' by 1 after each loop iteration
+
+
+  } 
+
+  // 2. do-while (runs at least once) 
+  log('--- do-while loop ---'); 
+  // Call the log function to output a header for the do-while loop section
+
+  let j = start; 
+  // Declare a variable 'j' and set it to the value of 'start' (initial counter for the loop)
+
+  do { 
+    log('Do count: ' + j); 
+    // Inside the loop, call log to output the current count value of 'j'
+
+    j++; // Increment 'j' by 1 after each loop iteration
+
+  } while (j <= end); 
+  // Check the condition after the loop body; continue if 'j' is less than or equal to 'end'
+
+  // 3. while with break 
+  log('--- while with break at 3 ---'); 
+  // Call the log function to output a header for the while with break section
+
+  let k = start; 
+  // Declare a variable 'k' and set it to the value of 'start' (initial counter for the loop)
+
+  while (k <= end) { 
+    // Start a while loop that continues as long as 'k' is less than or equal to 'end'
+
+    if (k === 3) break; 
+    // Inside the loop, check if 'k' equals 3; if true, exit the loop immediately
+
+    log('Break demo: ' + k); 
+    // If not broken, call log to output the current count value of 'k'
+
+    k++; // Increment 'k' by 1 after each loop iteration
+  } 
+} 
+</script> // End of JavaScript code block
+
+</body>
+</html>

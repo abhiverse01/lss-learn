@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Day 18 – Object Literal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{--accent:#0066ff;}
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:2rem;background:#f7f9fc;color:#222}
+    h1{margin-top:0;font-weight:600}
+    label{display:block;margin:.75rem 0 .25rem;font-size:.9rem;font-weight:500}
+    input{width:100%;max-width:280px;padding:.5rem .75rem;border:1px solid #ccd5e1;border-radius:.4rem;font-size:1rem}
+    button{margin-top:1rem;padding:.55rem 1.2rem;font-size:1rem;border:none;border-radius:.4rem;background:var(--accent);color:#fff;cursor:pointer}
+    button:hover{background:#0053d9}
+    pre{margin-top:1.5rem;padding:1rem;background:#eef2f7;border-radius:.4rem;font-size:.9rem;line-height:1.45;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+
+<h1>Day 18 – Object Literal</h1>
+
+<label>Car name: <input id="carName" value="Swift"></label>
+<label>Year: <input id="year" type="number" value="2023"></label>
+
+<button onclick="runObj()">Create object →</button>
+
+<pre id="log"></pre>
+
+<script>
+function log(msg) {
+  document.getElementById('log').textContent += msg + '\n';
+}
+
+function runObj() {
+  document.getElementById('log').textContent = '';
+
+  // 1. object literal with method & array
+  const car = {
+    name: document.getElementById('carName').value,
+    year: Number(document.getElementById('year').value),
+    features: ['AC', 'Airbags', 'ABS'],
+    show: function () {
+      return this.name + ' (' + this.year + ')';
+    }
+  };
+
+  log('--- object method ---');
+  log(car.show());
+
+  log('--- array inside object ---');
+  log('First feature: ' + car.features[0]);
+
+  // 2. shorthand property
+  const x = 5, y = 10;
+  const point = { x, y };
+  log('--- shorthand ---');
+  log('Point x=' + point.x + ' y=' + point.y);
+}
+</script>
+
+</body>
+</html>

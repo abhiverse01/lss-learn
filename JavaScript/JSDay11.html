@@ -32,8 +32,8 @@
 
   <!-- The script tag contains JavaScript code that implements the counter logic. -->
   <script>
-    // Grab references to DOM elements once for efficiency.
-    const numEl   = document.getElementById("number");
+    // Grab references to DOM elements once for efficiency. 
+    const numEl   = document.getElementById("number"); // getElementbyID method is used to access elements by their ID.
     const incBtn  = document.getElementById("inc");
     const decBtn  = document.getElementById("dec");
     const resBtn  = document.getElementById("reset");
@@ -43,7 +43,10 @@
 
     // Reusable function that syncs the data (count) to the DOM (updates the display).
     function updateScreen() {
-      numEl.textContent = count;
+      numEl.textContent = count; 
+      //numEl means number element. 
+      // numEl is a reference to the div showing the number.
+      // numEL.textContent sets the text inside that div to the current count.
       console.log("Count is now", count);
     }
 

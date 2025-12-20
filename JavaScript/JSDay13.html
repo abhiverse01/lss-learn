@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Day 13 – if / else playground</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{--accent:#0066ff;}
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:2rem;background:#f7f9fc;color:#222}
+    h1{margin-top:0;font-weight:600}
+    label{display:block;margin:.75rem 0 .25rem;font-size:.9rem;font-weight:500}
+    input{width:100%;max-width:280px;padding:.5rem .75rem;border:1px solid #ccd5e1;border-radius:.4rem;font-size:1rem}
+    button{margin-top:1rem;padding:.55rem 1.2rem;font-size:1rem;border:none;border-radius:.4rem;background:var(--accent);color:#fff;cursor:pointer}
+    button:hover{background:#0053d9}
+    pre{margin-top:1.5rem;padding:1rem;background:#eef2f7;border-radius:.4rem;font-size:.9rem;line-height:1.45;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+
+<h1>Day 13 – if / else playground</h1>
+
+<label>Age: <input id="age" type="number" value="18"></label>
+<label>Marks (0-100): <input id="marks" type="number" value="87"></label>
+<label>Password: <input id="pwd" type="text" placeholder="try 1234"></label>
+
+<button onclick="runDemos()">Run demos →</button>
+
+<pre id="log"></pre>
+
+<script>
+function log(msg) {
+  document.getElementById('log').textContent += msg + '\n';
+}
+
+function runDemos() {
+  // clear old output
+  document.getElementById('log').textContent = '';
+
+  // read values
+  const age = Number(document.getElementById('age').value);
+  const marks = Number(document.getElementById('marks').value);
+  const pwd = document.getElementById('pwd').value;
+
+  // 1. simple if
+  if (age >= 18) {
+    log('You can vote!');
+  }
+
+  // 2. if...else
+  if (marks > 90) {
+    log('Grade: A');
+  } else {
+    log('Grade: B or lower');
+  }
+
+  // 3. else-if ladder
+  let grade;
+  if (marks >= 90) {
+    grade = 'A';
+  } else if (marks >= 80) {
+    grade = 'B';
+  } else if (marks >= 70) {
+    grade = 'C';
+  } else {
+    grade = 'F';
+  }
+  log('Final grade: ' + grade);
+
+  // 4. nested if
+  if (pwd === '1234') {
+    if (age >= 18) {
+      log('Access granted');
+    } else {
+      log('Correct password, but age below 18');
+    }
+  } else {
+    log('Wrong password');
+  }
+
+  // 5. ternary operator
+  const result = (marks >= 50) ? 'Pass' : 'Fail';
+  log('Result: ' + result);
+}
+</script>
+
+</body>
+</html>

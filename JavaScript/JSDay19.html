@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Day 19 – Object() Constructor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{--accent:#0066ff;}
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:2rem;background:#f7f9fc;color:#222}
+    h1{margin-top:0;font-weight:600}
+    label{display:block;margin:.75rem 0 .25rem;font-size:.9rem;font-weight:500}
+    input{width:100%;max-width:280px;padding:.5rem .75rem;border:1px solid #ccd5e1;border-radius:.4rem;font-size:1rem}
+    button{margin-top:1rem;padding:.55rem 1.2rem;font-size:1rem;border:none;border-radius:.4rem;background:var(--accent);color:#fff;cursor:pointer}
+    button:hover{background:#0053d9}
+    pre{margin-top:1.5rem;padding:1rem;background:#eef2f7;border-radius:.4rem;font-size:.9rem;line-height:1.45;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+
+<h1>Day 19 – Object() Constructor</h1>
+
+<label>Name: <input id="name" value="Ravi"></label>
+<label>Age: <input id="age" type="number" value="17"></label>
+
+<button onclick="runObj()">Create →</button>
+
+<pre id="log"></pre>
+
+<script>
+function log(msg) {
+  document.getElementById('log').textContent += msg + '\n';
+}
+
+function runObj() {
+  document.getElementById('log').textContent = '';
+
+  // 1. create empty object with Object() constructor
+  const student = new Object();
+
+  // 2. add properties one by one
+  student.name = document.getElementById('name').value;
+  student.age  = Number(document.getElementById('age').value);
+  student.show = function () {
+    return this.name + ' is ' + this.age + ' years old.';
+  };
+
+  // 3. use the method
+  log('--- method call ---');
+  log(student.show());
+
+  // 4. read any property
+  log('Name: ' + student.name);
+  log('Age: ' + student.age);
+}
+</script>
+
+</body>
+</html>

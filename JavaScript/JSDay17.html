@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Day 17 – for…of loop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{--accent:#0066ff;}
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:2rem;background:#f7f9fc;color:#222}
+    h1{margin-top:0;font-weight:600}
+    label{display:block;margin:.75rem 0 .25rem;font-size:.9rem;font-weight:500}
+    input{width:100%;max-width:280px;padding:.5rem .75rem;border:1px solid #ccd5e1;border-radius:.4rem;font-size:1rem}
+    button{margin-top:1rem;padding:.55rem 1.2rem;font-size:1rem;border:none;border-radius:.4rem;background:var(--accent);color:#fff;cursor:pointer}
+    button:hover{background:#0053d9}
+    pre{margin-top:1.5rem;padding:1rem;background:#eef2f7;border-radius:.4rem;font-size:.9rem;line-height:1.45;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+
+<h1>Day 17 – for…of (arrays & string)</h1>
+
+<label>Enter words separated by commas: <input id="words" value="apple,banana,cherry"></label>
+
+<button onclick="runForOf()">Run →</button>
+
+<pre id="log"></pre>
+
+<script>
+function log(msg) {
+  document.getElementById('log').textContent += msg + '\n';
+}
+
+function runForOf() {
+  document.getElementById('log').textContent = '';
+
+  // 1. array from input
+  const arr = document.getElementById('words').value.split(',');
+  log('--- array values ---');
+  for (const item of arr) {
+    log('fruit: ' + item.trim());
+  }
+
+  // 2. string characters
+  const str = 'HELLO';
+  log('--- string chars ---');
+  for (const ch of str) {
+    log('char: ' + ch);
+  }
+
+  // 3. break early
+  log('--- break at cherry ---');
+  for (const item of arr) {
+    if (item.trim() === 'cherry') break;
+    log('before cherry: ' + item.trim());
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Day 20 – Object Utilities</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{--accent:#0066ff;}
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:2rem;background:#f7f9fc;color:#222}
+    h1{margin-top:0;font-weight:600}
+    label{display:block;margin:.75rem 0 .25rem;font-size:.9rem;font-weight:500}
+    input{width:100%;max-width:280px;padding:.5rem .75rem;border:1px solid #ccd5e1;border-radius:.4rem;font-size:1rem}
+    button{margin-top:1rem;padding:.55rem 1.2rem;font-size:1rem;border:none;border-radius:.4rem;background:var(--accent);color:#fff;cursor:pointer}
+    button:hover{background:#0053d9}
+    pre{margin-top:1.5rem;padding:1rem;background:#eef2f7;border-radius:.4rem;font-size:.9rem;line-height:1.45;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+
+<h1>Day 20 – Object Utilities</h1>
+
+<label>Item name: <input id="item" value="Keyboard"></label>
+<label>Price: <input id="price" type="number" value="899"></label>
+
+<button onclick="runUtils()">Run →</button>
+
+<pre id="log"></pre>
+
+<script>
+function log(msg) {
+  document.getElementById('log').textContent += msg + '\n';
+}
+
+function runUtils() {
+  document.getElementById('log').textContent = '';
+
+  const item = {
+    name: document.getElementById('item').value,
+    price: Number(document.getElementById('price').value)
+  };
+
+  // 1. keys, values, entries
+  log('--- keys ---');
+  log(Object.keys(item).join(', '));
+
+  log('--- values ---');
+  log(Object.values(item).join(', '));
+
+  log('--- entries ---');
+  for (const [k, v] of Object.entries(item)) {
+    log(k + ' = ' + v);
+  }
+
+  // 2. Object.assign (merge)
+  const defaults = { category: 'Electronics', discount: 0 };
+  const merged = Object.assign({}, defaults, item);
+  log('--- merged ---');
+  log('category: ' + merged.category);
+
+  // 3. Object.freeze
+  Object.freeze(item);
+  item.price = 100; // try to change
+  log('After freeze, price still: ' + item.price);
+}
+</script>
+
+</body>
+</html>

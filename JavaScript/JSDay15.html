@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Day 15 – for loop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{--accent:#0066ff;}
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:2rem;background:#f7f9fc;color:#222}
+    h1{margin-top:0;font-weight:600}
+    label{display:block;margin:.75rem 0 .25rem;font-size:.9rem;font-weight:500}
+    input{width:100%;max-width:280px;padding:.5rem .75rem;border:1px solid #ccd5e1;border-radius:.4rem;font-size:1rem}
+    button{margin-top:1rem;padding:.55rem 1.2rem;font-size:1rem;border:none;border-radius:.4rem;background:var(--accent);color:#fff;cursor:pointer}
+    button:hover{background:#0053d9}
+    pre{margin-top:1.5rem;padding:1rem;background:#eef2f7;border-radius:.4rem;font-size:.9rem;line-height:1.45;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+
+<h1>Day 15 – for loop</h1>
+
+<label>Start: <input id="start" type="number" value="1"></label>
+<label>End: <input id="end" type="number" value="5"></label>
+
+<button onclick="runFor()">Run →</button>
+
+<pre id="log"></pre>
+
+<script>
+function log(msg) {
+  document.getElementById('log').textContent += msg + '\n';
+}
+
+function runFor() {
+  document.getElementById('log').textContent = '';
+  const start = Number(document.getElementById('start').value);
+  const end   = Number(document.getElementById('end').value);
+
+  // 1. normal for
+  log('--- normal for ---');
+  for (let i = start; i <= end; i++) {
+    log('i = ' + i);
+  }
+
+  // 2. for with break
+  log('--- for with break at 3 ---');
+  for (let i = start; i <= end; i++) {
+    if (i === 3) break;
+    log('break demo i = ' + i);
+  }
+
+  // 3. for with continue
+  log('--- for with continue (skip even) ---');
+  for (let i = start; i <= end; i++) {
+    if (i % 2 === 0) continue;
+    log('odd i = ' + i);
+  }
+}
+</script>
+
+</body>
+</html>
