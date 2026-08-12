@@ -111,6 +111,6 @@ Students are encouraged to:
 ---
 
 ## 👤 Author  
-**Abhiverse (Abhishek Shah)**  
+**(Abhishek Shah)**  
 Teaching & mentoring students of LSS High.
 
