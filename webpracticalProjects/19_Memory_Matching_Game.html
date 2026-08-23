@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;text-align:center;padding:30px}
+  .grid{display:grid;grid-template-columns:repeat(4,70px);gap:8px;justify-content:center;margin:20px auto}
+  .card{width:70px;height:70px;background:#2b6cb0;border-radius:8px;display:flex;
+        align-items:center;justify-content:center;font-size:26px;color:transparent;
+        cursor:pointer;transition:.2s}
+  .card.flip{color:#fff;background:#4a5568}
+  .card.matched{background:#2f855a;color:#fff}
+  #status{margin-top:10px}
+</style>
+</head>
+<body>
+<h2>Memory Match</h2>
+<div id="status">Moves: 0</div>
+<div class="grid" id="grid"></div>
+<script>
+  const emojis = ['
+🍎 ','
+🍌 ','
+🍇 ','
+🍒 ','
+🍉 ','
+🍋 ','
+🍓 ','
+🍍 '];
+  let cards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+  let flipped = [], matched = [], moves = 0;
+  const grid = document.getElementById('grid');
+  cards.forEach((val, i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.textContent = val;
+    div.onclick = () => flip(i, div);
+    grid.appendChild(div);
+  });
+  function flip(i, div){
+    if(flipped.length === 2 || div.classList.contains('flip') || matched.includes(i)) return;
+    div.classList.add('flip');
+    flipped.push({i, div});
+    if(flipped.length === 2){
+      moves++;
+      document.getElementById('status').textContent = `Moves: ${moves}`;
+      const [a, b] = flipped;
+      if(cards[a.i] === cards[b.i]){
+        a.div.classList.add('matched'); b.div.classList.add('matched');
+        matched.push(a.i, b.i);
+        flipped = [];
+        if(matched.length === cards.length){
+          document.getElementById('status').textContent = `You Won! Moves: ${moves}`;
+        }
+      } else {
+        setTimeout(() => {
+          a.div.classList.remove('flip'); b.div.classList.remove('flip');
+          flipped = [];
+        }, 700);
+      }
+    }
+  }
+</script>
+</body>
+</html>
