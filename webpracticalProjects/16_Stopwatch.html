@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;text-align:center;padding:60px}
+  #time{font-size:40px;margin-bottom:16px}
+  button{padding:10px 16px;margin:4px;border:none;border-radius:
+6px;background:#2b6cb0;color:#fff;cursor:pointer}
+  ul{list-style:none;padding:0;max-width:200px;margin:16px auto;text-align:left}
+</style>
+</head>
+<body>
+<div id="time">00:00.00</div>
+<button onclick="start()">Start</button>
+<button onclick="pause()">Pause</button>
+<button onclick="reset()">Reset</button>
+<button onclick="lap()">Lap</button>
+<ul id="laps"></ul>
+<script>
+  let startTime = 0, elapsed = 0, timer = null;
+  function format(ms){
+    const m = String(Math.floor(ms/60000)).padStart(2,'0');
+    const s = String(Math.floor(ms/1000)%60).padStart(2,'0');
+    const cs = String(Math.floor(ms/10)%100).padStart(2,'0');
+    return `${m}:${s}.${cs}`;
+  }
+  function tick(){
+    document.getElementById('time').textContent = format(Date.now() - startTime + elapsed);
+  }
+  function start(){
+    if(timer) return;
+    startTime = Date.now();
+    timer = setInterval(tick, 30);
+  }
+  function pause(){
+    if(!timer) return;
+    elapsed += Date.now() - startTime;
+    clearInterval(timer); timer = null;
+  }
+  function reset(){
+    clearInterval(timer); timer = null; elapsed = 0;
+    document.getElementById('time').textContent = '00:00.00';
+    document.getElementById('laps').innerHTML = '';
+  }
+  function lap(){
+    const li = document.createElement('li');
+    li.textContent = document.getElementById('time').textContent;
+    document.getElementById('laps').appendChild(li);
+  }
+</script>
+</body>
+</html>
