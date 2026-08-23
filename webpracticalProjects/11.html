@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;padding:30px;max-width:480px;margin:auto}
+  .form{display:flex;gap:6px;margin-bottom:16px}
+  input,select{padding:8px}
+  .item{display:flex;justify-content:space-between;border:1px solid #ddd;border-radius:6px;
+        padding:8px;margin-bottom:6px}
+  .tag{background:#edf2f7;padding:2px 8px;border-radius:10px;font-size:12px}
+  #total{font-weight:bold;font-size:18px;margin-top:10px}
+</style>
+</head>
+<body>
+<h2>Expense Tracker</h2>
+<div class="form">
+  <input id="name" placeholder="Item">
+  <input id="amount" type="number" placeholder="Amount">
+  <select id="category"><option>Food</option><option>Travel</option><option>Bills</option><option>Other</
+option></select>
+  <button onclick="add()">Add</button>
+</div>
+<div id="list"></div>
+<div id="total"></div>
+<script>
+  let expenses = [];
+  function add(){
+    const name = document.getElementById('name').value.trim();
+    const amount = parseFloat(document.getElementById('amount').value);
+    const category = document.getElementById('category').value;
+    if(!name || isNaN(amount)) return;
+    expenses.push({name, amount, category});
+    document.getElementById('name').value = '';
+    document.getElementById('amount').value = '';
+    render();
+  }
+  function remove(i){ expenses.splice(i,1); render(); }
+  function render(){
+    document.getElementById('list').innerHTML = expenses.map((e,i) => `
+      <div class="item">
+        <span>${e.name} <span class="tag">${e.category}</span></span>
+        <span>$${e.amount.toFixed(2)} <button onclick="remove(${i})">x</button></span>
+      </div>`).join('');
+    const total = expenses.reduce((s,e) => s + e.amount, 0);
+    document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+  }
+</script>
+</body>
+</html>
