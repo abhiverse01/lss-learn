@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Georgia,serif;background:#faf6f0;display:flex;justify-content:center;padding:30px}
+  .card{width:360px;background:#fff;border:1px solid #ddd;border-radius:8px;padding:20px}
+  .meta{display:flex;justify-content:space-between;font-size:13px;color:#777;margin-bottom:10px}
+  li{margin:4px 0}
+  @media print{ button{display:none} }
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>Lemon Garlic Pasta</h2>
+  <div class="meta"><span>Prep: 10m</span><span>Cook: 15m</span><span>Serves: 2</span></div>
+  <h4>Ingredients</h4>
+  <ul>
+    <li><label><input type="checkbox"> 200g pasta</label></li>
+    <li><label><input type="checkbox"> 2 cloves garlic</label></li>
+    <li><label><input type="checkbox"> 1 lemon</label></li>
+    <li><label><input type="checkbox"> Olive oil</label></li>
+  </ul>
+  <h4>Steps</h4>
+  <ol>
+    <li>Boil pasta until al dente.</li>
+    <li>Sauté garlic in olive oil.</li>
+    <li>Toss pasta with garlic, lemon zest and juice.</li>
+  </ol>
+  <button onclick="window.print()">Print Recipe</button>
+</div>
+</card>
+</body>
+</html>
