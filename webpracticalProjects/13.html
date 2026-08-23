@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;max-width:500px;margin:40px auto}
+  .tabs{display:flex;border-bottom:2px solid #ddd}
+  .tab{padding:10px 16px;cursor:pointer;color:#666}
+  .tab.active{color:#2b6cb0;border-bottom:2px solid #2b6cb0;margin-bottom:-2px}
+  .panel{display:none;padding:16px 4px}
+  .panel.active{display:block}
+</style>
+</head>
+<body>
+<div class="tabs">
+  <div class="tab active" data-tab="about">About</div>
+  <div class="tab" data-tab="skills">Skills</div>
+  <div class="tab" data-tab="projects">Projects</div>
+  <div class="tab" data-tab="contact">Contact</div>
+</div>
+<div class="panel active" id="about">I'm a web developer learning by building small projects.</div>
+<div class="panel" id="skills">HTML, CSS, JavaScript, and growing.</div>
+<div class="panel" id="projects">20 mini-projects from this practice set.</div>
+<div class="panel" id="contact">Reach me at hi@example.com</div>
+<script>
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
