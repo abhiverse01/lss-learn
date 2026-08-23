@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial,sans-serif;text-align:center;padding:40px}
+  .row{display:flex;justify-content:center;gap:10px;margin:20px 0}
+  .swatch{width:90px;height:120px;border-radius:8px;display:flex;align-items:flex-end;
+          justify-content:center;color:#fff;font-size:13px;cursor:pointer;padding-bottom:8px}
+  button{padding:10px 20px;border:none;border-radius:6px;background:#2b6cb0;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+<h2>Color Palette Generator</h2>
+<div class="row" id="row"></div>
+<button onclick="generate()">Generate</button>
+<script>
+  const row = document.getElementById('row');
+  function randColor(){
+    return '#' + Math.floor(Math.random()*0xffffff).toString(16).padStart(6,'0');
+  }
+  function generate(){
+    row.innerHTML = '';
+    for(let i=0;i<5;i++){
+      const hex = randColor();
+      const div = document.createElement('div');
+      div.className = 'swatch';
+      div.style.background = hex;
+      div.textContent = hex;
+      div.onclick = () => {
+        navigator.clipboard.writeText(hex);
+        div.textContent = 'Copied!';
+        setTimeout(()=> div.textContent = hex, 800);
+      };
+      row.appendChild(div);
+    }
+  }
+  generate();
+</script>
+</body>
+</html>
