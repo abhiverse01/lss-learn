@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;padding:30px;max-width:500px;margin:auto}
+  .form{display:flex;gap:8px;margin-bottom:16px}
+  input{padding:8px;flex:1}
+  table{width:100%;border-collapse:collapse}
+  td,th{border:1px solid #ddd;padding:6px;text-align:left}
+  #summary{margin-top:12px;font-weight:bold}
+</style>
+</head>
+<body>
+<h2>Grade Calculator</h2>
+<div class="form">
+  <input id="subject" placeholder="Subject">
+  <input id="marks" type="number" placeholder="Marks /100">
+  <button onclick="addRow()">Add</button>
+</div>
+<table>
+  <thead><tr><th>Subject</th><th>Marks</th><th></th></tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+<div id="summary"></div>
+<script>
+  let subjects = [];
+  function addRow(){
+    const name = document.getElementById('subject').value.trim();
+    const marks = parseFloat(document.getElementById('marks').value);
+    if(!name || isNaN(marks)) return;
+    subjects.push({name, marks});
+    document.getElementById('subject').value = '';
+    document.getElementById('marks').value = '';
+    render();
+  }
+  function remove(i){ subjects.splice(i,1); render(); }
+  function render(){
+    document.getElementById('rows').innerHTML = subjects.map((s,i) => `
+      <tr><td>${s.name}</td><td>${s.marks}</td>
+      <td><button onclick="remove(${i})">Remove</button></td></tr>`).join('');
+    const total = subjects.reduce((sum,s) => sum + s.marks, 0);
+    const avg = subjects.length ? (total / subjects.length) : 0;
+    let grade = 'F';
+    if(avg >= 90) grade = 'A';
+    else if(avg >= 75) grade = 'B';
+    else if(avg >= 60) grade = 'C';
+    else if(avg >= 40) grade = 'D';
+    document.getElementById('summary').textContent =
+      subjects.length ? `Total: ${total} | Average: ${avg.toFixed(1)} | Grade: ${grade}` : '';
+  }
+</script>
+</body>
+</html>
