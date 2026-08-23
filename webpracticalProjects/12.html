@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;max-width:500px;margin:40px auto}
+  .item{border-bottom:1px solid #ddd}
+  .q{display:flex;justify-content:space-between;padding:14px 4px;cursor:pointer;font-weight:bold}
+  .a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:14px;color:#444}
+  .a p{margin:0 0 12px}
+  .plus{transition:.3s}
+  .open .plus{transform:rotate(45deg)}
+</style>
+</head>
+<body>
+<h2>FAQs</h2>
+<div id="faq"></div>
+<script>
+  const data = [
+    {q:'What is this course about?', a:'A hands-on introduction to HTML, CSS and JavaScript.'},
+    {q:'Do I need prior experience?', a:'No, it starts from the basics.'},
+    {q:'How long does it take?', a:'About 2-3 weeks at a relaxed pace.'},
+    {q:'Is there a certificate?', a:'Yes, after completing all practice sets.'},
+    {q:'Can I ask questions?', a:'Yes, always feel free to ask.'}
+  ];
+  const faq = document.getElementById('faq');
+  data.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `<div class="q">${item.q}<span class="plus">+</span></div><div class="a"><p>${item.a}</
+p></div>`;
+    const q = div.querySelector('.q');
+    const a = div.querySelector('.a');
+    q.onclick = () => {
+      const isOpen = div.classList.contains('open');
+      document.querySelectorAll('.item').forEach(i => {
+        i.classList.remove('open'); i.querySelector('.a').style.maxHeight = null;
+      });
+      if(!isOpen){ div.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    };
+    faq.appendChild(div);
+  });
+</script>
+</body>
+</html>
