@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;text-align:center;padding:60px}
+  .box{display:flex;gap:20px;justify-content:center;font-size:32px}
+  .unit{display:flex;flex-direction:column}
+  .unit span:last-child{font-size:12px;color:#666}
+</style>
+</head>
+<body>
+<h2>Countdown to New Year</h2>
+<div class="box" id="box"></div>
+<script>
+  const target = new Date('2027-01-01T00:00:00');
+  const box = document.getElementById('box');
+  function update(){
+    const diff = target - new Date();
+    if(diff <= 0){ box.innerHTML = "<h3>Time's up!</h3>"; clearInterval(timer); return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff / 3600000) % 24;
+    const m = Math.floor(diff / 60000) % 60;
+    const s = Math.floor(diff / 1000) % 60;
+    box.innerHTML = [[d,'Days'],[h,'Hrs'],[m,'Min'],[s,'Sec']]
+      .map(([v,l]) => `<div class="unit"><span>${v}</span><span>${l}</span></div>`).join('');
+  }
+  update();
+  const timer = setInterval(update, 1000);
+</script>
+</body>
+</html>
