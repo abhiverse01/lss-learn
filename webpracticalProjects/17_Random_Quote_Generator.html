@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Georgia,serif;display:flex;justify-content:center;padding:60px}
+  .box{max-width:400px;text-align:center}
+  blockquote{font-size:20px;margin:0 0 8px}
+  cite{color:#666}
+  button{margin:6px;padding:8px 16px;border:none;border-radius:
+6px;background:#2b6cb0;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="box">
+  <blockquote id="text"></blockquote>
+  <cite id="author"></cite><br>
+  <button onclick="newQuote()">New Quote</button>
+  <button onclick="copy()">Copy</button>
+</div>
+<script>
+  const quotes = [
+    {text:'Simplicity is the soul of efficiency.', author:'Austin Freeman'},
+    {text:'Code is like humor. When you have to explain it, it is bad.', author:'Cory House'},
+    {text:'First, solve the problem. Then, write the code.', author:'John Johnson'},
+    {text:'Programs must be written for people to read.', author:'Harold Abelson'},
+    {text:'Make it work, make it right, make it fast.', author:'Kent Beck'},
+    {text:'The best error message is the one that never shows up.', author:'Thomas Fuchs'},
+    {text:'Talk is cheap. Show me the code.', author:'Linus Torvalds'},
+    {text:'Experience is the name everyone gives to their mistakes.', author:'Oscar Wilde'},
+    {text:'Fix the cause, not the symptom.', author:'Steve Maguire'},
+    {text:'Good code is its own best documentation.', author:'Steve McConnell'}
+  ];
+  let last = -1;
+  function newQuote(){
+    let i;
+    do { i = Math.floor(Math.random() * quotes.length); } while(i === last);
+    last = i;
+    document.getElementById('text').textContent = quotes[i].text;
+    document.getElementById('author').textContent = '— ' + quotes[i].author;
+  }
+  function copy(){
+    navigator.clipboard.writeText(document.getElementById('text').textContent);
+  }
+  newQuote();
+</script>
+</body>
+</html>
