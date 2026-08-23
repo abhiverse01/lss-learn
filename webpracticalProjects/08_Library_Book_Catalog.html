@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;padding:30px;max-width:600px;margin:auto}
+  .controls{display:flex;gap:10px;margin-bottom:16px}
+  input,select{padding:8px;flex:1}
+  .book{border:1px solid #ddd;border-radius:6px;padding:10px;margin-bottom:8px;
+        display:flex;justify-content:space-between}
+  .badge{padding:2px 8px;border-radius:12px;font-size:12px;color:#fff}
+  .yes{background:#2f855a}.no{background:#c53030}
+</style>
+</head>
+<body>
+<h2>Library Catalog</h2>
+<div class="controls">
+  <input id="search" placeholder="Search title or author...">
+  <select id="category"><option value="">All Categories</option></select>
+</div>
+<div id="list"></div>
+<script>
+  const books = [
+    {title:'Clean Code', author:'Robert Martin', category:'Tech', available:true},
+    {title:'Sapiens', author:'Yuval Harari', category:'Non-fiction', available:false},
+    {title:'Dune', author:'Frank Herbert', category:'Fiction', available:true},
+    {title:'Cosmos', author:'Carl Sagan', category:'Science', available:true},
+    {title:'1984', author:'George Orwell', category:'Fiction', available:false},
+    {title:'The Selfish Gene', author:'Richard Dawkins', category:'Science', available:true},
+    {title:'Educated', author:'Tara Westover', category:'Non-fiction', available:true},
+    {title:'Atomic Habits', author:'James Clear', category:'Non-fiction', available:false},
+    {title:'The Hobbit', author:'J.R.R. Tolkien', category:'Fiction', available:true},
+    {title:'A Brief History of Time', author:'Stephen Hawking', category:'Science', available:true}
+  ];
+  const list = document.getElementById('list');
+  const search = document.getElementById('search');
+  const category = document.getElementById('category');
+  [...new Set(books.map(b=>b.category))].forEach(c=>{
+    const o = document.createElement('option'); o.value=c; o.textContent=c;
+    category.appendChild(o);
+  });
+  function render(){
+    const q = search.value.toLowerCase();
+    const c = category.value;
+    const filtered = books.filter(b =>
+      (b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q)) &&
+      (c === '' || b.category === c)
+    );
+    list.innerHTML = filtered.map(b => `
+      <div class="book">
+        <span><b>${b.title}</b> by ${b.author} <small>(${b.category})</small></span>
+        <span class="badge ${b.available ? 'yes' : 'no'}">${b.available ? 'Available' : 'Checked Out'}</
+span>
+      </div>`).join('') || '<p>No books found.</p>';
+  }
+  search.addEventListener('input', render);
+  category.addEventListener('change', render);
+  render();
+</script>
+</body>
+</html>
