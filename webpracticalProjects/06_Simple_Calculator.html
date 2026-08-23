@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{display:flex;justify-content:center;padding:30px;font-family:Arial}
+  .calc{width:220px}
+  #display{width:100%;height:50px;font-size:22px;text-align:right;margin-bottom:8px;
+           box-sizing:border-box;padding:6px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  button{padding:14px;font-size:16px;border:none;border-radius:6px;background:#eee;cursor:pointer}
+  button.op{background:#2b6cb0;color:#fff}
+</style>
+</head>
+<body>
+<div class="calc">
+  <input id="display" readonly>
+  <div class="grid" id="pad"></div>
+</div>
+<script>
+  const display = document.getElementById('display');
+  const pad = document.getElementById('pad');
+  const keys = ['7','8','9','÷','4','5','6','×','1','2','3','−','C','0','.','+','='];
+  let expr = '';
+  keys.forEach(k => {
+    const b = document.createElement('button');
+    b.textContent = k;
+    if('÷×−+='.includes(k)) b.classList.add('op');
+    b.onclick = () => handle(k);
+    pad.appendChild(b);
+  });
+  function handle(k){
+    if(k === 'C'){ expr = ''; }
+    else if(k === '='){
+      try{
+        const safe = expr.replace(/÷/g,'/').replace(/×/g,'*').replace(/−/g,'-');
+        expr = String(eval(safe));
+      }catch(e){ expr = 'Error'; }
+    } else {
+      expr += k;
+    }
+    display.value = expr;
+  }
+</script>
+</body>
+</html>
