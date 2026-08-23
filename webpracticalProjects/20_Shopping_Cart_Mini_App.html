@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;padding:30px;max-width:600px;margin:auto}
+  .products{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .p{border:1px solid #ddd;border-radius:6px;padding:10px;text-align:center}
+  .p button{margin-top:6px;padding:6px 10px;border:none;border-radius:
+4px;background:#2b6cb0;color:#fff;cursor:pointer}
+  .cart{margin-top:20px;border-top:2px solid #ddd;padding-top:10px}
+  .row{display:flex;justify-content:space-between;align-items:center;margin:6px 0}
+  .row button{margin:0 2px}
+  #total{font-weight:bold;font-size:18px}
+</style>
+</head>
+<body>
+<h2>Shop</h2>
+<div class="products" id="products"></div>
+<div class="cart">
+  <h3>Cart</h3>
+  <div id="cartList"></div>
+  <div id="total"></div>
+  <button onclick="clearCart()">Clear Cart</button>
+</div>
+<script>
+  const products = [
+    {id:1, name:'T-Shirt', price:15},
+    {id:2, name:'Mug', price:8},
+    {id:3, name:'Notebook', price:5},
+    {id:4, name:'Sticker Pack', price:3},
+    {id:5, name:'Cap', price:12},
+    {id:6, name:'Bag', price:20}
+  ];
+  let cart = [];
+  const pDiv = document.getElementById('products');
+  products.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'p';
+    div.innerHTML = `<b>${p.name}</b><br>$${p.price}<br><button onclick="addToCart(${p.id})">Add to Cart</
+button>`;
+    pDiv.appendChild(div);
+  });
+  function addToCart(id){
+    const item = cart.find(c => c.id === id);
+    if(item) item.qty++;
+    else cart.push({...products.find(p => p.id === id), qty: 1});
+    render();
+  }
+  function changeQty(id, delta){
+    const item = cart.find(c => c.id === id);
+    item.qty += delta;
+    if(item.qty <= 0) cart = cart.filter(c => c.id !== id);
+    render();
+  }
+  function clearCart(){ cart = []; render(); }
+  function render(){
+    const list = document.getElementById('cartList');
+    list.innerHTML = cart.length ? cart.map(c => `
+<div class="row">
+<span>${c.name} x${c.qty}</span>
+<span>
+<button onclick="changeQty(${c.id},-1)">-</button>
+<button onclick="changeQty(${c.id},1)">+</button>
+$${(c.price * c.qty).toFixed(2)}
+</span>
+</div>`).join('') : '<p>Cart is empty.</p>';
+const total = cart.reduce((s,c) => s + c.price * c.qty, 0);
+document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+}
+render();
+</script>
+</body>
+</html>
