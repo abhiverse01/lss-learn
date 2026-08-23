@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{font-family:Arial;display:flex;justify-content:center;padding:40px}
+  .box{width:340px}
+  .opt{display:block;width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;
+       border-radius:6px;background:#fff;cursor:pointer;text-align:left}
+  .correct{background:#c6f6d5;border-color:#2f855a}
+  .wrong{background:#fed7d7;border-color:#c53030}
+</style>
+</head>
+<body>
+<div class="box" id="app"></div>
+<script>
+  const questions = [
+    {q:'What does HTML stand for?',
+     options:['Hyper Trainer Marking Language','Hyper Text Markup Language',
+              'Hyper Text Marketing Language','Hyperlinks Text Markup Language'], correct:1},
+    {q:'Which tag makes text bold?', options:['<bold>','<b>','<strong-text>','<bd>'], correct:1},
+    {q:'CSS stands for?',
+     options:['Cascading Style Sheets','Creative Style System',
+              'Computer Style Sheets','Colorful Style Sheets'], correct:0},
+    {q:'Which keyword declares a constant in JS?', options:['var','let','const','static'], correct:2},
+    {q:'Which array method adds an item to the end?', options:['push()','add()','append()','insert()'], 
+correct:0}
+  ];
+  let i = 0, score = 0;
+  const app = document.getElementById('app');
+  function render(){
+    if(i >= questions.length){
+      app.innerHTML = `<h2>You scored ${score} out of ${questions.length}</h2><button 
+onclick="restart()">Retry</button>`;
+      return;
+    }
+    const q = questions[i];
+    app.innerHTML = `<h3>${q.q}</h3>` + q.options.map((o,idx) =>
+      `<button class="opt" onclick="answer(${idx})">${o}</button>`).join('');
+  }
+  function answer(idx){
+    const q = questions[i];
+    const btns = document.querySelectorAll('.opt');
+    btns[q.correct].classList.add('correct');
+    if(idx !== q.correct) btns[idx].classList.add('wrong');
+    else score++;
+    btns.forEach(b => b.onclick = null);
+    setTimeout(() => { i++; render(); }, 800);
+  }
+  function restart(){ i = 0; score = 0; render(); }
+  render();
+</script>
+</body>
+</html>
